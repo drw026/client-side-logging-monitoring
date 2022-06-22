@@ -34,6 +34,7 @@ app.post('/error', async (req, res) => {
         '@timestamp': new Date().toISOString(),
         level: 'error',
         message: req.body.message,
+        context: req.body.context,
         request: {
             method: req.method,
             url: req.url,

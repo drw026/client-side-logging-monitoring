@@ -4,7 +4,13 @@ window.addEventListener('error', function(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: event.error.message }),
+        body: JSON.stringify({
+            message: event.error.message,
+            context: {
+                page: window.location.href,
+                sourcefile: `${event.filename} - ${event.lineno} - ${event.colno}`,
+            }
+        }),
     }).then();
 });
 
