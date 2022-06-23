@@ -3,15 +3,33 @@ services:
   elasticsearch:
     image: elasticsearch:7.7.1
     ports:
-      - 9200:9200
+      - "9200:9200"
     environment:
       discovery.type: 'single-node'
       xpack.security.enabled: 'true'
       ELASTIC_PASSWORD: 'test'
+    networks:
+      - incentro
   kibana:
     image: kibana:7.7.1
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
-      - 5601:5601
-
+      - "5601:5601"
+    networks:
+      - incentro
+  webserver:
+    build:
+      context: ../
+      dockerfile: "./.infra/Dockerfile"
+    image: webserver
+    volumes:
+      - ../:/usr/src/app:delegated
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - incentro
+networks:
+  incentro:
+    driver: bridge
