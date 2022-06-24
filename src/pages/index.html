@@ -5,11 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test site</title>
+    <script>
+        window.addEventListener('error', function(event) {
+            fetch('/error', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: event.error.message,
+                    context: {
+                        page: window.location.href,
+                        sourcefile: `${event.filename} - ${event.lineno} - ${event.colno}`,
+                    }
+                }),
+            }).then();
+        });
+    </script>
 </head>
 <body>
-    Test
-    <button id="button1">Button1</button>
-    <button id="button2">Button2</button>
+    <div>
+        <label for="button1">Custom error1</label>
+        <button id="button1">Button1</button>
+    </div>
+
+    <div>
+        <label for="button2">Custom error2</label>
+        <button id="button2">Button2</button>
+    </div>
+
+    <div>
+        <label for="button3">Typo in var reference</label>
+        <button id="button3">Button3</button>
+    </div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
