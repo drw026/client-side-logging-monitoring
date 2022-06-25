@@ -13,7 +13,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    message: event.error.message,
+                    message: event.message || event.error.message,
                     context: {
                         page: window.location.href,
                         sourcefile: `${event.filename} - ${event.lineno} - ${event.colno}`,
@@ -25,18 +25,23 @@
 </head>
 <body>
     <div>
-        <label for="button1">Custom error1</label>
         <button id="button1">Button1</button>
+        <label for="button1">Accessing a property of an undefined object</label>
     </div>
 
     <div>
-        <label for="button2">Custom error2</label>
         <button id="button2">Button2</button>
+        <label for="button2">Calling a property of an undefined object</label>
     </div>
 
     <div>
-        <label for="button3">Typo in var reference</label>
         <button id="button3">Button3</button>
+        <label for="button3">Throw an exception</label>
+    </div>
+
+    <div>
+        <button id="button4">Button4</button>
+        <label for="button4">Throw an custom error</label>
     </div>
 
     <script src="js/main.js"></script>

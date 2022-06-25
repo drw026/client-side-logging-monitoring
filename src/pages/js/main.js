@@ -1,18 +1,29 @@
+const getBrowserFromUserAgent = (userAgent) => {
+    if (userAgent.indexOf('Chrome') > -1) return 'Chrome';
+    if (userAgent.indexOf('Firefox') > -1) return 'Firefox';
+    if (userAgent.indexOf('Safari') > -1) return 'Safari';
+    return 'Unknown browser';
+}
+
 const firstButton = document.querySelector('#button1');
-firstButton.addEventListener('click', () => buttonHandler('Custom error 1'));
+firstButton.addEventListener('click', () => {
+    undefinedObject.objectProperty;
+});
 
 const secondButton = document.querySelector('#button2');
-secondButton.addEventListener('click', () => buttonHandler('Custom error 2'));
+secondButton.addEventListener('click', () => {
+    undefinedObject.objectMethod();
+});
 
 const thirdButton = document.querySelector('#button3');
 thirdButton.addEventListener('click', () => {
-    const type = 'test';
-    console.log(typo);
-})
+    throw 'Exception is thrown';
+});
 
-function buttonHandler (message) {
-    throw new Error(message);
-}
+const fourthButton = document.querySelector('#button4');
+fourthButton.addEventListener('click', () => {
+    throw new Error(`Error from ${getBrowserFromUserAgent(navigator.userAgent)}`);
+})
 
 function init () {
     if (navigator.userAgent.indexOf('Googlebot') > -1) {
